@@ -137,23 +137,24 @@ export const services = [
   },
 ];
 
+// image = homepage screenshot in public/projects (1280×800)
 export const projects = [
-  { name: "Entrepedia", category: "SaaS / Marketplace", url: "https://www.entrepedia.co/", hue: 90 },
-  { name: "Healthdesk AI", category: "AI / CRM", url: "https://healthdesk.ai/", hue: 190 },
-  { name: "WOW EARN", category: "Web3 / Platform", url: "https://wowearn.com/", hue: 270 },
-  { name: "Lindy AI", category: "AI / Automation", url: "https://www.lindy.ai/", hue: 140 },
-  { name: "Uplimit", category: "EdTech / SaaS", url: "https://www.uplimit.com/", hue: 210 },
-  { name: "Educato AI", category: "AI / Education", url: "https://educato.ai/", hue: 300 },
-  { name: "thirdweb", category: "Web3 / Developer Platform", url: "https://thirdweb.com/", hue: 330 },
-  { name: "Canary Technologies", category: "Hospitality SaaS", url: "https://www.canarytechnologies.com/", hue: 30 },
-  { name: "Mews", category: "Hospitality / SaaS", url: "https://www.mews.com/", hue: 170 },
-  { name: "Vapi", category: "AI / Voice", url: "https://vapi.ai/", hue: 120 },
-  { name: "Attio", category: "CRM / SaaS", url: "https://attio.com/", hue: 230 },
-  { name: "Retell AI", category: "AI / Voice", url: "https://www.retellai.com/", hue: 10 },
-  { name: "Flowise", category: "AI / LLM Workflows", url: "https://flowiseai.com/", hue: 250 },
-  { name: "Hostaway", category: "Hospitality SaaS", url: "https://www.hostaway.com/", hue: 50 },
-  { name: "Cloudbeds", category: "Hospitality / SaaS", url: "https://www.cloudbeds.com/", hue: 200 },
-  { name: "Linear", category: "Product / Developer Tool", url: "https://linear.app/", hue: 260 },
+  { name: "Entrepedia", category: "SaaS / Marketplace", url: "https://www.entrepedia.co/", hue: 90, image: "/projects/entrepedia.jpg" },
+  { name: "Healthdesk AI", category: "AI / CRM", url: "https://healthdesk.ai/", hue: 190, image: "/projects/healthdesk.jpg" },
+  { name: "WOW EARN", category: "Web3 / Platform", url: "https://wowearn.com/", hue: 270, image: "/projects/wowearn.jpg" },
+  { name: "Lindy AI", category: "AI / Automation", url: "https://www.lindy.ai/", hue: 140, image: "/projects/lindy.jpg" },
+  { name: "Uplimit", category: "EdTech / SaaS", url: "https://www.uplimit.com/", hue: 210, image: "/projects/uplimit.jpg" },
+  { name: "Educato AI", category: "AI / Education", url: "https://educato.ai/", hue: 300, image: "/projects/educato.jpg" },
+  { name: "thirdweb", category: "Web3 / Developer Platform", url: "https://thirdweb.com/", hue: 330, image: "/projects/thirdweb.jpg" },
+  { name: "Canary Technologies", category: "Hospitality SaaS", url: "https://www.canarytechnologies.com/", hue: 30, image: "/projects/canary.jpg" },
+  { name: "Mews", category: "Hospitality / SaaS", url: "https://www.mews.com/", hue: 170, image: "/projects/mews.jpg" },
+  { name: "Vapi", category: "AI / Voice", url: "https://vapi.ai/", hue: 120, image: "/projects/vapi.jpg" },
+  { name: "Attio", category: "CRM / SaaS", url: "https://attio.com/", hue: 230, image: "/projects/attio.jpg" },
+  { name: "Retell AI", category: "AI / Voice", url: "https://www.retellai.com/", hue: 10, image: "/projects/retell.jpg" },
+  { name: "Flowise", category: "AI / LLM Workflows", url: "https://flowiseai.com/", hue: 250, image: "/projects/flowise.jpg" },
+  { name: "Hostaway", category: "Hospitality SaaS", url: "https://www.hostaway.com/", hue: 50, image: "/projects/hostaway.jpg" },
+  { name: "Cloudbeds", category: "Hospitality / SaaS", url: "https://www.cloudbeds.com/", hue: 200, image: "/projects/cloudbeds.jpg" },
+  { name: "Linear", category: "Product / Developer Tool", url: "https://linear.app/", hue: 260, image: "/projects/linear.jpg" },
 ];
 
 export const experience = [

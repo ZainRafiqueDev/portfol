@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -11,41 +12,53 @@ import SectionHeading from "@/components/ui/SectionHeading";
 gsap.registerPlugin(ScrollTrigger);
 
 function ProjectCard({ p, i }) {
+  const domain = new URL(p.url).hostname.replace(/^www\./, "");
   return (
     <a
       href={p.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="work-card group relative flex h-[420px] w-[80vw] shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-line p-7 sm:w-[380px] md:h-[460px]"
+      className="work-card group relative flex w-[85vw] snap-center shrink-0 flex-col gap-5 overflow-hidden rounded-3xl border border-line p-4 transition-colors duration-500 hover:border-line-strong sm:w-[480px] sm:p-5"
       style={{
-        background: `radial-gradient(120% 90% at 100% 0%, hsl(${p.hue} 85% 55% / 0.28), transparent 60%), var(--surface-strong)`,
+        background: `radial-gradient(120% 80% at 100% 0%, hsl(${p.hue} 85% 55% / 0.22), transparent 60%), var(--surface-strong)`,
       }}
     >
-      {/* Decorative mock window */}
-      <div className="pointer-events-none absolute inset-x-7 top-24 bottom-28 rounded-2xl border border-line bg-bg/60 p-4 transition-transform duration-700 group-hover:-translate-y-2 group-hover:scale-[1.02]">
-        <div className="mb-4 flex gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-          <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
-          <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
+      {/* Browser window with the live site's screenshot */}
+      <div className="overflow-hidden rounded-2xl border border-line bg-bg shadow-[var(--shadow)]">
+        <div className="flex items-center gap-3 border-b border-line px-4 py-2.5">
+          <div className="flex gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          </div>
+          <span className="flex-1 truncate rounded-md bg-surface px-3 py-1 text-center font-mono text-[11px] text-muted">{domain}</span>
         </div>
-        <div className="grid h-[calc(100%-1.5rem)] place-items-center">
-          <span
-            className="font-display text-7xl font-bold opacity-80 transition-transform duration-700 group-hover:scale-110"
-            style={{ color: `hsl(${p.hue} 80% 55%)` }}
-          >
-            {p.name.slice(0, 2).toUpperCase()}
-          </span>
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <Image
+            src={p.image}
+            alt={`${p.name} website homepage`}
+            fill
+            sizes="(min-width: 640px) 480px, 85vw"
+            className="object-cover object-top transition-transform duration-[1.2s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.06]"
+          />
+          {/* Hover overlay */}
+          <div className="absolute inset-0 grid place-items-center bg-black/0 transition-colors duration-500 group-hover:bg-black/35">
+            <span className="flex translate-y-4 items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+              Visit site <ArrowUpRight size={16} />
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex items-center justify-between">
-        <span className="font-mono text-sm text-muted">{String(i + 1).padStart(2, "0")}</span>
-        <span className="glass rounded-full px-3 py-1 text-xs text-muted">{p.category}</span>
-      </div>
-
-      <div className="relative flex items-end justify-between">
-        <h3 className="font-display text-3xl font-semibold">{p.name}</h3>
-        <span className="grid h-12 w-12 place-items-center rounded-full bg-fg text-bg transition-transform duration-500 group-hover:rotate-45">
+      <div className="flex items-end justify-between gap-4 px-1 pb-1">
+        <div className="min-w-0">
+          <div className="mb-1.5 flex items-center gap-3">
+            <span className="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+            <span className="truncate rounded-full border border-line px-2.5 py-0.5 text-[11px] text-muted">{p.category}</span>
+          </div>
+          <h3 className="truncate font-display text-2xl font-semibold sm:text-3xl">{p.name}</h3>
+        </div>
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-fg text-bg transition-transform duration-500 group-hover:rotate-45">
           <ArrowUpRight size={20} />
         </span>
       </div>
@@ -96,12 +109,12 @@ export default function Work() {
           eyebrow="Selected Work / 04"
           title="Work in"
           highlight="perspective."
-          desc="Products, AI systems, SaaS platforms, Web3 and hospitality work. Scroll to browse — click any card to visit."
+          desc="Products, AI systems, SaaS platforms, Web3 and hospitality work. Scroll (or swipe) to browse — click any card to visit the live site."
         />
       </div>
       <div
         ref={track}
-        className="flex gap-5 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:overflow-visible md:pl-[max(2rem,calc((100vw-1200px)/2+2rem))]"
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:snap-none md:overflow-visible md:pl-[max(2rem,calc((100vw-1200px)/2+2rem))]"
       >
         {projects.map((p, i) => (
           <ProjectCard key={p.name} p={p} i={i} />
