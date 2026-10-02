@@ -31,7 +31,7 @@ The form already includes validation (Ant Design Form), a hidden honeypot field 
 
 ## Editing content
 
-Almost all text lives in **`src/data/portfolio.js`**: profile, socials, email, stats, skills (with levels), expertise, services, projects, experience, automation steps and "why work with me" features. Replace `public/Adil-Rafique-CV.pdf` to update the CV.
+Almost all text lives in **`src/data/portfolio.js`**: profile, socials, email, stats, skills (with levels), expertise, services, projects, experience, automation steps and "why work with me" features. Replace `public/Adil-Rafique-CV.pdf` to update the CV. Project thumbnails are 1280×800 homepage screenshots in `public/projects/` — drop in a new `.jpg` with the same name to replace one, or add `image: "/projects/name.jpg"` for a new project.
 
 ## Structure
 
