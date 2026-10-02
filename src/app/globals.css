@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ---------- Theme tokens ---------- */
+:root {
+  --bg: #f6f7f2;
+  --bg-soft: #eceee6;
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: #ffffff;
+  --border: rgba(15, 23, 42, 0.09);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --text: #0b0d12;
+  --muted: #5b6270;
+  --accent: #4f8a00;        /* lime, darkened for contrast on light */
+  --accent-soft: rgba(110, 180, 20, 0.14);
+  --accent-2: #0284c7;
+  --accent-ink: #ffffff;
+  --glow: rgba(110, 180, 20, 0.22);
+  --grid: rgba(15, 23, 42, 0.06);
+  --shadow: 0 20px 60px -20px rgba(15, 23, 42, 0.18);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #07080b;
+  --bg-soft: #0d0f14;
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-strong: #11141a;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text: #f5f7fb;
+  --muted: #9ca3af;
+  --accent: #b8ff5c;
+  --accent-soft: rgba(184, 255, 92, 0.1);
+  --accent-2: #7ce8ff;
+  --accent-ink: #07080b;
+  --glow: rgba(184, 255, 92, 0.18);
+  --grid: rgba(255, 255, 255, 0.05);
+  --shadow: 0 20px 80px -20px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-ink: var(--accent-ink);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-inter), sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-padding-top: 96px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* View-transition theme switch (circular reveal) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ---------- Utilities ---------- */
+@utility container-x {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+}
+
+@utility glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+@utility text-gradient {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Spotlight card (React Bits style) */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 45%);
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Infinite marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 40s linear infinite; }
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* Aurora blobs */
+@keyframes aurora {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6%, -8%) scale(1.1); }
+  66% { transform: translate(-6%, 6%) scale(0.95); }
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  animation: aurora 18s ease-in-out infinite;
+}
+
+/* Animated gradient border (Aceternity "moving border" style) */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle { to { --angle: 360deg; } }
+.gradient-border {
+  position: relative;
+  border-radius: 1.5rem;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle), transparent 60%, var(--accent), var(--accent-2), transparent 90%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-angle 5s linear infinite;
+  pointer-events: none;
+}
+
+/* Ant Design input tweaks to blend with theme */
+.contact-form .ant-input,
+.contact-form .ant-input-affix-wrapper,
+.contact-form .ant-select-selector,
+.contact-form textarea.ant-input {
+  background: var(--surface) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
